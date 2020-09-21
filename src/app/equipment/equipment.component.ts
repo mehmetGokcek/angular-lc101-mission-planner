@@ -21,11 +21,34 @@ export class EquipmentComponent implements OnInit {
    cargoMass: number = 0;
    maximumAllowedMass: number = 2000;
    maxItems: number = 10;
+   changeColor: boolean = false;
+
+
 
    constructor() { }
 
    ngOnInit() { }
 
    // Code your addItem function here:
+   addItem(newEquipment:object):boolean {
+    let result = false;
+
+     this.cargoHold.push(newEquipment);
+     this.cargoMass += newEquipment['mass'];
+
+     if (this.cargoMass >= 1800) {
+       result = true;
+     }
+     return result;
+   }
    
+   isCargoFull(equipment: object):boolean{
+    let result = false;
+    let newMass = equipment['mass'] + this.cargoMass;
+    if( newMass > this.maximumAllowedMass || this.cargoHold.length === this.maxItems) {
+      result =  true;
+    }
+    return result;
+   }
+
 }
